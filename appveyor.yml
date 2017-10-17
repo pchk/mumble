@@ -27,3 +27,19 @@ install:
 
 build_script:
   - "powershell ./scripts/appveyor/appveyor-build.ps1"
+
+after_build:
+  - 7z a mumble.pdb.zip release\mumble*.pdb
+
+artifacts:
+  - path: 'release\**\mumble*.pdb'
+    name: symbols
+    type: file
+
+  - path: mumble.pdb.zip
+    name: mumble.pdb.zip
+    type: zip
+
+  - path: 'installer\**\mumble-*.msi'
+    name: installer
+    type: file
